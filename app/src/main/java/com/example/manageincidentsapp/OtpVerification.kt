@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.manageincidentsapp.databinding.ActivityOtpVerficationBinding
-import com.example.manageincidentsapp.network.IncidentApiStatus
-import com.example.manageincidentsapp.network.UserViewModel
+import com.example.manageincidentsapp.user.IncidentApiStatus
+import com.example.manageincidentsapp.user.UserViewModel
 
 class OtpVerification : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel

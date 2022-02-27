@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.example.manageincidentsapp.network.IncidentApiStatus
+import com.example.manageincidentsapp.user.IncidentApiStatus
 
 
 @SuppressLint("ResourceAsColor")

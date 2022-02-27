@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.manageincidentsapp.databinding.ActivityMainBinding
-import com.example.manageincidentsapp.network.IncidentApiStatus
-import com.example.manageincidentsapp.network.UserViewModel
+import com.example.manageincidentsapp.user.IncidentApiStatus
+import com.example.manageincidentsapp.user.UserViewModel
 
 class MainActivity : AppCompatActivity() {
 
