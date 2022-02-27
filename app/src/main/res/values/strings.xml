@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ManageIncidentsApp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="email_example">name@example.com</string>
+    <string name="enter_the_code">Enter The Code</string>
+    <string name="code_hint">4 Digits Code</string>
+    <string name="done">Done</string>
+    <string name="sending_data">sending data to the server...</string>
+    <string name="email_error_message">No account associated with the email address</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wrong_code">Wrong code</string>
+</resources>
