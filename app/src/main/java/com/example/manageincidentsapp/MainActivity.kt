@@ -34,8 +34,13 @@ class MainActivity : AppCompatActivity() {
             val email = binding.emailInput.text.toString()
             USER_EMAIL = email
             Log.i("Login Btn clicked", " email value =$email")
-            userViewModel.getUserProperties(email)
+            userViewModel.checkUserEmail(email)
         }
+
+
+        userViewModel.errorHandler.observe(this, Observer { newError ->
+            binding.errorMessage.text = newError.errorMessage
+        })
 
         userViewModel.loginStatus.observe(this, Observer { newStatus ->
 
@@ -49,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
 
         setContentView(binding.root)
     }

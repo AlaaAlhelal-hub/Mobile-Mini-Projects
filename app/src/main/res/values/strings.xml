@@ -7,8 +7,9 @@
     <string name="code_hint">4 Digits Code</string>
     <string name="done">Done</string>
     <string name="sending_data">sending data to the server...</string>
-    <string name="email_error_message">No account associated with the email address</string>
+    <string name="email_error_message">Something went wrong, please try again!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wrong_code">Wrong code</string>
+    <string name="list_of_incidents">List of incidents</string>
 </resources>

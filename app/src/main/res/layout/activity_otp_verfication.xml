@@ -26,30 +26,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextNumber"
-            style="@style/SecondaryText"
-            android:layout_width="0dp"
+        <com.chaos.view.PinView
+            android:id="@+id/otp_number"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/code_hint"
             android:inputType="number"
-            android:maxLength="4"
-            android:minHeight="48dp"
-            android:textAlignment="center"
+            android:focusable="true"
+            android:cursorVisible="true"
+            android:background="@color/white"
+            style="@style/PinWidget.PinView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/code_text" />
+            app:layout_constraintTop_toBottomOf="@+id/code_text"
+            android:itemBackground="@color/white"
+            app:cursorColor="@color/teal_700"
+            app:cursorWidth="2dp"
+            app:hideLineWhenFilled="false"
+            app:itemCount="4"
+            app:itemHeight="48dp"
+            app:itemRadius="5dp"
+            app:itemSpacing="8dp"
+            app:itemWidth="48dp"
+            app:lineColor="@color/teal_200"
+            app:lineWidth="2dp"
+            app:viewType="rectangle" />
+
 
         <TextView
             android:id="@+id/code_error_message"
             app:layout_constraintBottom_toTopOf="@+id/send_otp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
+            app:layout_constraintTop_toBottomOf="@+id/otp_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

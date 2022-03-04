@@ -16,19 +16,6 @@
 
 
 
-        <TextView
-            android:id="@+id/app_name"
-            style="@style/PrimaryText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:fontFamily="@font/dhurjati"
-            android:text="@string/app_name"
-            app:layout_constraintBottom_toTopOf="@id/email_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/email_text"
@@ -41,7 +28,7 @@
             android:text="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/email_input"
@@ -89,7 +76,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_input"
-            app:LoginStatus="@{userViewModel.loginStatus}"/>
+            app:loginStatus="@{userViewModel.loginStatus}"
+            app:errorHandler="@{userViewModel.errorHandler}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
