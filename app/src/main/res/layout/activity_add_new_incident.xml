@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="incidentViewModel"
+            type="com.example.manageincidentsapp.incident.AddNewIncidentViewModel" />
+    </data>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".incident.AddNewIncident">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/miduem_margin"
+                android:layout_marginEnd="@dimen/miduem_margin"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/indident_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/incident_description"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="300"
+                    android:maxLines="4"
+                    android:minHeight="48dp" />
+
+                <Spinner
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="@dimen/miduem_margin"
+                    android:ems="10"
+                    android:hint="@string/incident_type"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    />
+
+                <Spinner
+                    android:id="@+id/sub_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="@dimen/miduem_margin"
+                    android:ems="10"
+                    android:hint="@string/subtype"
+                    android:inputType="number"
+                    android:minHeight="48dp" />
+
+                <fragment
+                    android:id="@+id/Map"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_marginBottom="@dimen/large_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sub_type"
+                    class="com.google.android.gms.maps.SupportMapFragment"
+                    />
+
+                <Button
+                    android:id="@+id/upload_media_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/miduem_margin"
+                    android:layout_marginBottom="@dimen/large_margin"
+                    android:text="@string/upload_photo"
+                    />
+
+                <fragment
+                    android:id="@+id/row_attachment_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.example.manageincidentsapp.incident.AttachmentFragment"
+                    android:layout_marginBottom="@dimen/extra_large_margin"
+                    />
+
+                <Button
+                    android:id="@+id/add_new_incident_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/large_margin"
+                    android:text="@string/submit" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

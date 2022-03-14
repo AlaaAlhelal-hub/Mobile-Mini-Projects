@@ -8,14 +8,12 @@
             type="com.example.manageincidentsapp.user.UserViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".OtpVerification">
 
         <TextView
             android:id="@+id/code_text"
-            style="@style/PrimaryText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/code_text"
             android:itemBackground="@color/white"
-            app:cursorColor="@color/teal_700"
+            app:cursorColor="@color/primaryLightColor"
             app:cursorWidth="2dp"
             app:hideLineWhenFilled="false"
             app:itemCount="4"
@@ -50,7 +48,7 @@
             app:itemRadius="5dp"
             app:itemSpacing="8dp"
             app:itemWidth="48dp"
-            app:lineColor="@color/teal_200"
+            app:lineColor="@color/primaryLightColor"
             app:lineWidth="2dp"
             app:viewType="rectangle" />
 

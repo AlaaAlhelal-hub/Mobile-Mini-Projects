@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".incident.AttachmentFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/attachment_imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/attachments"
+        android:cropToPadding="true"
+        android:padding="10dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_picture_image"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/deleteAttachment"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="0dp"
+        android:background="#B3FFFFFF"
+        android:contentDescription="@string/delete_image"
+        android:padding="1dp"
+        app:srcCompat="@drawable/ic_close"
+        app:tint="@color/secondaryDarkColor"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

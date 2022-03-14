@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="PrimaryButton" parent="ThemeOverlay.AppCompat">
-        <item name="android:textColor">@color/white</item>
+    <style name="PrimaryButton" parent="Widget.AppCompat.Button">
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="backgroundTint">@color/teal_700</item>
+        <item name="android:backgroundTint">@color/primaryLightColor</item>
+    </style>
+
+    <style name="PrimaryFloatingActionButton" parent="Widget.Design.FloatingActionButton">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:backgroundTint">@color/primaryLightColor</item>
+
+    </style>
+
+    <style name="SecondaryButton" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="PrimaryText" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/teal_700</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="SecondaryText" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/grey</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:color">@color/secondaryDarkColor</item>
     </style>
 
-    <style name="SecondaryText.Body" parent="TextAppearance.AppCompat">
+    <style name="SecondaryText.Body" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">@dimen/body_text_size</item>
-        <item name="android:textAlignment">center</item>
+        <item name="android:color">@color/secondaryTextColor</item>
     </style>
 
     <style name="PrimaryText.Title">
@@ -33,10 +48,6 @@
         <item name="android:textSize">@dimen/subtitle_text_size</item>
     </style>
 
-    <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:indeterminateTintMode">@color/teal_700</item>
-    </style>
-
     <style name="MessageError" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/red</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
@@ -46,7 +57,7 @@
 
 
     <style name="MessageLoading" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textAlignment">textStart</item>
@@ -58,4 +69,39 @@
         <item name="cardElevation">4dp</item>
     </style>
 
+
+    <style name="Status" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+    <style name="Status.Submitted" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">@color/primaryLightColor</item>
+    </style>
+    <style name="Status.InProgress" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+    <style name="Status.Rejected" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+    <style name="Status.Completed" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
 </resources>

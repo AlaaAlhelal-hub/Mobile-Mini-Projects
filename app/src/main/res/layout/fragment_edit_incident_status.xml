@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.manageincidentsapp.incident.EditIncidentStatusViewModel" />
+    </data>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".incident.EditIncidentStatusFragment"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@+id/select_new_status"
+        style="@style/PrimaryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/miduem_margin"
+        android:text="@string/select_new_status"
+        android:textAlignment="textStart"
+        />
+
+    <RadioGroup
+        android:id="@+id/status_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/extra_large_margin"
+        android:layout_marginEnd="@dimen/miduem_margin"
+        android:layout_marginStart="@dimen/miduem_margin">
+
+        <RadioButton
+            android:id="@+id/submitted_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/primaryLightColor"
+            android:text="@string/status_submitted" />
+
+            <RadioButton
+                android:id="@+id/in_progress_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_inProgress"
+                android:buttonTint="@color/primaryLightColor"
+                />
+
+            <RadioButton
+                android:id="@+id/completed_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_completed"
+                android:buttonTint="@color/primaryLightColor"
+                />
+
+            <RadioButton
+                android:id="@+id/rejected_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_rejected"
+                android:buttonTint="@color/primaryLightColor"
+                />
+    </RadioGroup>
+    <Button
+        android:id="@+id/save_changes"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/miduem_margin"
+        android:text="@string/save_changes"
+        android:layout_gravity="bottom"/>
+
+</FrameLayout>
+</layout>

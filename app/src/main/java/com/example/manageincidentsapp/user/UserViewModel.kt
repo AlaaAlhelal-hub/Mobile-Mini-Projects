@@ -4,21 +4,22 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.JsonObject
+import com.example.manageincidentsapp.network.ApiErrorResponse
+import com.example.manageincidentsapp.network.IncidentApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
-import okhttp3.internal.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-enum class IncidentApiStatus {InProgress, Completed, Rejected}
+enum class IncidentApiStatus {Pending, Done, Failure}
 
 class UserViewModel : ViewModel() {
+
 
 
     private var _loginStatus = MutableLiveData<IncidentApiStatus>()
@@ -29,16 +30,16 @@ class UserViewModel : ViewModel() {
     val otpStatus: LiveData<IncidentApiStatus>
         get() = _otpStatus
 
-    private var _loginResponse = MutableLiveData<LoginResponse>()
-    val loginResponse : LiveData<LoginResponse>
+    private var _loginResponse = MutableLiveData<LoginResponse?>()
+    val loginResponse : MutableLiveData<LoginResponse?>
         get() = _loginResponse
 
-    private var _user = MutableLiveData<UserProperty>()
-    val user : LiveData<UserProperty>
+    private var _user = MutableLiveData<UserProperty?>()
+    val user : MutableLiveData<UserProperty?>
         get() = _user
 
-    private var _errorHandler = MutableLiveData<ErrorHandler>()
-    val errorHandler : LiveData<ErrorHandler>
+    private var _errorHandler = MutableLiveData<ApiErrorResponse>()
+    val errorHandler : LiveData<ApiErrorResponse>
         get() = _errorHandler
 
     private val viewModelJob = Job()
@@ -47,28 +48,28 @@ class UserViewModel : ViewModel() {
 
     fun checkUserEmail(email: String) {
         coroutineScope.launch {
-            _loginStatus.value = IncidentApiStatus.InProgress
+            _loginStatus.value = IncidentApiStatus.Pending
 
             // val requestBody = JsonObject()
             // requestBody.addProperty("email", email)
-            val checkUser = UserProperty(email, "")
+            val checkUser = UserProperty(email,"")
             IncidentApi.retrofitService.login(checkUser).enqueue( object: Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     _user.value  = null
                     Log.i("response failed"," ${t.message}")
-                    _loginStatus.value = IncidentApiStatus.Rejected
-                    _errorHandler.value = ErrorHandler(null)
+                    _loginStatus.value = IncidentApiStatus.Failure
+                    _errorHandler.value = ApiErrorResponse(null)
                 }
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     Log.i("response code"," ${response.code()}")
 
                     if (response.code() == 200) {
-                        _user.value = UserProperty(email, "")
-                        _loginStatus.value = IncidentApiStatus.Completed
+                        _user.value = UserProperty(email,"")
+                        _loginStatus.value = IncidentApiStatus.Done
                     } else if (response.code() == 400){
                         _user.value  = null
-                        _errorHandler.value = ErrorHandler("please enter a valid email")
-                        _loginStatus.value = IncidentApiStatus.Rejected
+                        _errorHandler.value = ApiErrorResponse("please enter a valid email")
+                        _loginStatus.value = IncidentApiStatus.Failure
                     }
                 }
             })
@@ -78,24 +79,24 @@ class UserViewModel : ViewModel() {
 
     fun otpVerification(user: UserProperty) {
         coroutineScope.launch {
-            _otpStatus.value = IncidentApiStatus.InProgress
+            _otpStatus.value = IncidentApiStatus.Pending
 
             IncidentApi.retrofitService.verifyOTP(user).enqueue( object: Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    _otpStatus.value = IncidentApiStatus.Rejected
+                    _otpStatus.value = IncidentApiStatus.Failure
                     _loginResponse.value = null
-                    _errorHandler.value = ErrorHandler(null)
+                    _errorHandler.value = ApiErrorResponse(null)
                 }
 
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
 
                     if (response.code() == 200) {
                         _loginResponse.value = LoginResponse(response.body()?.token!! , response.body()?.roles!!)
-                        _otpStatus.value = IncidentApiStatus.Completed
+                        _otpStatus.value = IncidentApiStatus.Done
                     }
                     else {
-                        _errorHandler.value = ErrorHandler("wrong code") //invalid credential
-                        _otpStatus.value = IncidentApiStatus.Rejected
+                        _errorHandler.value = ApiErrorResponse("wrong code") //invalid credential
+                        _otpStatus.value = IncidentApiStatus.Failure
                         _loginResponse.value = null
                     }
                 }

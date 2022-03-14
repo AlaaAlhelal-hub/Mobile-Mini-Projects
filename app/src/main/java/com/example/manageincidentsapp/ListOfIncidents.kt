@@ -1,48 +1,39 @@
 package com.example.manageincidentsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.manageincidentsapp.incident.IncidentAdapter
-import com.example.manageincidentsapp.incident.IncidentListener
-import com.example.manageincidentsapp.incident.ListOfIncidentViewModel
 import com.example.manageincidentsapp.databinding.ActivityListOfIncidentsBinding
+import com.example.manageincidentsapp.incident.*
 
 class ListOfIncidents : AppCompatActivity() {
 
     lateinit var listOfIncidentsViewModel: ListOfIncidentViewModel
+    lateinit var incidentsViewModel: ViewIncidentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityListOfIncidentsBinding = ActivityListOfIncidentsBinding.inflate(layoutInflater)
 
+        /*
+        incidentsViewModel = ViewModelProvider(this).get(ViewIncidentViewModel::class.java)
+
         listOfIncidentsViewModel = ViewModelProvider(this).get(ListOfIncidentViewModel::class.java)
 
-
-        binding.lifecycleOwner = this
-
-        binding.listOfIncidentsViewModel = listOfIncidentsViewModel
-
-
-        val manager = GridLayoutManager(this, 2)
-        binding.listOfIncidents.layoutManager = manager
-
-        val adapter = IncidentAdapter(IncidentListener { incidentId ->
-            listOfIncidentsViewModel.onIncidentClicked(incidentId)
+        listOfIncidentsViewModel.navigateToIncidentDetails.observe(this, Observer { newIncident ->
+            Log.i("observe value of incident","${newIncident.toString()}")
+            incidentsViewModel.incident.value = newIncident
         })
+*/
 
-        binding.listOfIncidents.adapter = adapter
-
-        listOfIncidentsViewModel.listOfIncidents.observe(this, Observer {
-            it?.let {
-                adapter.submitList(it.toMutableList())
-            }
-        })
         setContentView(binding.root)
 
     }
+
 
 
 

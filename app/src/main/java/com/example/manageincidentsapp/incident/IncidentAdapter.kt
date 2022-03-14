@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.manageincidentsapp.R
 import com.example.manageincidentsapp.databinding.IncidentItemBinding
 
 
@@ -26,6 +27,22 @@ class IncidentAdapter (val clickListener: IncidentListener): ListAdapter<Inciden
         fun bind(clickListener: IncidentListener, item: Incident) {
             binding.incident = item
             binding.clickListener = clickListener
+
+            when(binding.incident?.status) {
+                0 -> { binding.incidentStatus.text = IncidentStatus.Submitted.toString()
+                    binding.statusIcon.setImageResource(R.drawable.ic_circle_submitted)
+                    binding.incidentStatus.setTextAppearance(R.style.Status_Submitted)}
+                1 -> { binding.incidentStatus.text = IncidentStatus.InProgress.toString()
+                    binding.statusIcon.setImageResource(R.drawable.ic_circle_in_progress)
+                    binding.incidentStatus.setTextAppearance(R.style.Status_InProgress)}
+                2 -> { binding.incidentStatus.text = IncidentStatus.Completed.toString()
+                    binding.statusIcon.setImageResource(R.drawable.ic_circle_completed)
+                    binding.incidentStatus.setTextAppearance(R.style.Status_Completed)}
+                3 -> { binding.incidentStatus.text = IncidentStatus.Rejected.toString()
+                    binding.statusIcon.setImageResource(R.drawable.ic_circle_rejected)
+                    binding.incidentStatus.setTextAppearance(R.style.Status_Rejected)}
+            }
+
             binding.executePendingBindings()
         }
 
@@ -33,6 +50,8 @@ class IncidentAdapter (val clickListener: IncidentListener): ListAdapter<Inciden
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = IncidentItemBinding.inflate(layoutInflater, parent, false)
+
+
 
                 return ViewHolder(binding)
             }
@@ -50,7 +69,7 @@ class IncidentDiffCallback: DiffUtil.ItemCallback<Incident>(){
     }
 }
 
-class IncidentListener(val clickListener: (incidentId: String) -> Unit) {
-    fun onClick(incident: Incident) = clickListener(incident.id)
+class IncidentListener(val clickListener: (incident: Incident) -> Unit) {
+    fun onClick(incident: Incident) = clickListener(incident)
 }
 

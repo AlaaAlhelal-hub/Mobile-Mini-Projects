@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/listOfIncidentsFragment">
+
+    <fragment
+        android:id="@+id/listOfIncidentsFragment"
+        android:name="com.example.manageincidentsapp.incident.ListOfIncidentsFragment"
+        android:label="fragment_list_of_incident"
+        tools:layout="@layout/fragment_list_of_incident" >
+        <argument
+            android:name="incident"
+            app:argType="com.example.manageincidentsapp.incident.Incident" />
+        <action
+            android:id="@+id/action_listOfIncidentsFragment_to_incidentDetailsFragment"
+            app:destination="@id/incidentDetailsFragment"
+            app:popUpTo="@id/incidentDetailsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="incidentType"
+            app:argType="com.example.manageincidentsapp.incidentType.IncidentType"
+            app:nullable="true" />
+        <argument
+            android:name="issuerName"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/incidentDetailsFragment"
+        android:name="com.example.manageincidentsapp.incident.IncidentDetailsFragment"
+        android:label="IncidentDetailsFragment" >
+        <argument
+            android:name="incident"
+            app:argType="com.example.manageincidentsapp.incident.Incident" />
+        <action
+            android:id="@+id/action_incidentDetailsFragment_to_listOfIncidentsFragment"
+            app:destination="@id/listOfIncidentsFragment"
+            app:popUpTo="@id/listOfIncidentsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="incidentType"
+            app:argType="com.example.manageincidentsapp.incidentType.IncidentType"
+            app:nullable="true" />
+        <argument
+            android:name="issuerName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_incidentDetailsFragment_to_editIncidentStatusFragment"
+            app:destination="@id/editIncidentStatusFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editIncidentStatusFragment"
+        android:name="com.example.manageincidentsapp.incident.EditIncidentStatusFragment"
+        android:label="fragment_edit_incident_status"
+        tools:layout="@layout/fragment_edit_incident_status" >
+        <action
+            android:id="@+id/action_editIncidentStatusFragment_to_incidentDetailsFragment"
+            app:destination="@id/incidentDetailsFragment" />
+        <argument
+            android:name="incidentId"
+            app:argType="string" />
+        <argument
+            android:name="currentStatus"
+            app:argType="integer" />
+        <argument
+            android:name="issuerName"
+            app:argType="string" />
+        <argument
+            android:name="IncidentType"
+            app:argType="com.example.manageincidentsapp.incidentType.IncidentType" />
+    </fragment>
+</navigation>

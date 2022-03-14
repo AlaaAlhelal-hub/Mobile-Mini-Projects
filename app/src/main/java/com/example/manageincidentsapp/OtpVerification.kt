@@ -38,7 +38,7 @@ class OtpVerification : AppCompatActivity() {
         }
 
         userViewModel.otpStatus.observe(this, Observer { newStatus ->
-            if (newStatus == IncidentApiStatus.Completed) {
+            if (newStatus == IncidentApiStatus.Done) {
                 val intentListOfIncidents = Intent(this, ListOfIncidents::class.java)
                 startActivity(intentListOfIncidents)
             }
@@ -51,7 +51,7 @@ class OtpVerification : AppCompatActivity() {
             if ( newResponse != null) {
                 val sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
-                editor.putString("TOKEN", newResponse.token)
+                editor.putString("TOKEN", "Bearer ${newResponse.token}")
                 editor.apply()
             }
         })

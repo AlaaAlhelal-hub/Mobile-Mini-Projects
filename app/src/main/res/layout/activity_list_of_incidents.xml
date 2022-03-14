@@ -3,11 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<data>
-    <variable
-        name="listOfIncidentsViewModel"
-        type="com.example.manageincidentsapp.incident.ListOfIncidentViewModel" />
-</data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,27 +11,28 @@
         tools:context=".ListOfIncidents"
         android:background="@color/lightGrey">
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/PrimaryText.Title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/large_margin"
-            android:text="@string/list_of_incidents"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            android:id="@+id/list_of_incidents"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="@dimen/large_margin"
-            />
+
+            <!--android:name="com.example.manageincidentsapp.incident.ListOfIncidentsFragment"-->
+            <fragment
+                android:id="@+id/list_of_incidents_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:navGraph="@navigation/navigation"
+                app:defaultNavHost="true"
+                />
+
+        </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

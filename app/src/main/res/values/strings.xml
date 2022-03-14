@@ -1,15 +1,36 @@
 <resources>
-    <string name="app_name">ManageIncidentsApp</string>
+    <string name="google_maps_api">AIzaSyDlf19mHH05D4O4OLiCDQbwsOHkRK5KLeY</string>
+    <string name="app_name">Incidents App</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
-    <string name="email_example">name@example.com</string>
+    <string name="email_example">Enter your email</string>
     <string name="enter_the_code">Enter The Code</string>
     <string name="code_hint">4 Digits Code</string>
     <string name="done">Done</string>
-    <string name="sending_data">sending data to the server...</string>
+    <string name="sending_data">sending data to the server…</string>
     <string name="email_error_message">Something went wrong, please try again!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wrong_code">Wrong code</string>
     <string name="list_of_incidents">List of incidents</string>
+    <string name="add_new_incident">Add new incident Button</string>
+    <string name="incident_description">Enter incident\'s description</string>
+    <string name="incident_type">Enter Incident Type</string>
+    <string name="subtype">Enter the subtype</string>
+    <string name="add">Add</string>
+    <string name="created_by">Created By</string>
+    <string name="upload_photo">upload photo</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="attachments">attachments</string>
+    <string name="close">close</string>
+    <string name="delete_image">Delete image</string>
+    <string name="status_submitted">Submitted</string>
+    <string name="status_inProgress">In Progress</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="change_status">Change Status</string>
+    <string name="select_new_status">Select New Status</string>
+    <string name="save_changes">Save Changes</string>
+
 </resources>

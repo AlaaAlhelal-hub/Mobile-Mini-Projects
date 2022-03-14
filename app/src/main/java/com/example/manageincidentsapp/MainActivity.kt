@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         userViewModel.loginStatus.observe(this, Observer { newStatus ->
 
-            if (newStatus == IncidentApiStatus.Completed){
+            if (newStatus == IncidentApiStatus.Done){
                 sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
                 val editor = sharedpreferences.edit()
                 editor.putString("USER_EMAIL", USER_EMAIL)
