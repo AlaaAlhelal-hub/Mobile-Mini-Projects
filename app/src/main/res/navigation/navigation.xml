@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listOfIncidentsFragment"
-        android:name="com.example.manageincidentsapp.incident.ListOfIncidentsFragment"
+        android:name="com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentsFragment"
         android:label="fragment_list_of_incident"
         tools:layout="@layout/fragment_list_of_incident" >
         <argument
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/incidentDetailsFragment"
-        android:name="com.example.manageincidentsapp.incident.IncidentDetailsFragment"
+        android:name="com.example.manageincidentsapp.incident.viewIncidentDetails.IncidentDetailsFragment"
         android:label="IncidentDetailsFragment" >
         <argument
             android:name="incident"
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/editIncidentStatusFragment"
-        android:name="com.example.manageincidentsapp.incident.EditIncidentStatusFragment"
+        android:name="com.example.manageincidentsapp.incident.editIncidentStatus.EditIncidentStatusFragment"
         android:label="fragment_edit_incident_status"
         tools:layout="@layout/fragment_edit_incident_status" >
         <action

@@ -1,14 +1,10 @@
 package com.example.manageincidentsapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.manageincidentsapp.databinding.ActivityListOfIncidentsBinding
-import com.example.manageincidentsapp.incident.*
+import com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentViewModel
+import com.example.manageincidentsapp.incident.viewIncidentDetails.ViewIncidentViewModel
 
 class ListOfIncidents : AppCompatActivity() {
 

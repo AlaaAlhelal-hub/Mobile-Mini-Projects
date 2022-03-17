@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.editIncidentStatus
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

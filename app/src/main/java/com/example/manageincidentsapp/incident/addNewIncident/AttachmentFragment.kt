@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.addNewIncident
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

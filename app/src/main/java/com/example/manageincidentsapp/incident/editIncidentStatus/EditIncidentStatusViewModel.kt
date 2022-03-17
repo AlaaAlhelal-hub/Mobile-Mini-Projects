@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.editIncidentStatus
 
 import android.app.Application
 import android.content.Context
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
 import com.example.manageincidentsapp.network.IncidentApi

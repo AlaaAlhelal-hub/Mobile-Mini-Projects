@@ -3,11 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="com.example.manageincidentsapp.incident.ListOfIncidentsFragment">
+        tools:context="com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentsFragment">
         <data>
             <variable
                 name="listOfIncidentsViewModel"
-                type="com.example.manageincidentsapp.incident.ListOfIncidentViewModel" />
+                type="com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentViewModel" />
         </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

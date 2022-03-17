@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.listOfIncident
 
 
 import android.annotation.SuppressLint
@@ -11,6 +11,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.incidentType.SubIncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
@@ -100,7 +101,6 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
 
     init {
         getIncidentType()
-        getAllUsers()
         getListOfIncidents()
     }
 
@@ -127,7 +127,7 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
                     if (response.code() == 200) {
                         _listOfIncidents.value = response.body()?.incidents?.asList()
                         formattingDate()
-                        getUserName()
+                        getAllUsers()
                         _status.value = IncidentApiStatus.Done
                     }
                     else if (response.code() == 403) {
@@ -159,7 +159,7 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
                 Callback<List<IncidentType>> {
                 override fun onResponse(call: Call<List<IncidentType>>, response: Response<List<IncidentType>>
                 ) {
-                    Log.i("response code ", "${response.code()}")
+                    Log.i("_incidentType response code ", "${response.code()}")
 
                     if (response.code() == 200) {
                         _incidentType.value = response.body()
@@ -205,6 +205,7 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
 
                     if (response.code() == 200) {
                         _users.value = response.body()
+                        getUserName()
                         _getAllUsersStatus.value = IncidentApiStatus.Done
                     }
                     else if (response.code() == 403) {
@@ -250,10 +251,7 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
     private fun getUserName(){
         _issuerNames.value =  ArrayList<String>()
         for (i in 0 until _listOfIncidents.value?.size!!){
-            Log.i("i ", "$i")
             loop@for (j in 0 until _users.value?.size!!){
-                Log.i("j ", "$j")
-                Log.i("${_listOfIncidents.value!![i].issuerId} == ", "${_users.value!![j].id}")
                 if( _listOfIncidents.value!![i].issuerId.equals(_users.value!![j].id)){
                     val email =_users.value!![j].email
                     _issuerNames.value!!.add(email!!.substring(email.indexOf('@')))

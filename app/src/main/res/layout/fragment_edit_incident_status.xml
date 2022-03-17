@@ -6,12 +6,12 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.manageincidentsapp.incident.EditIncidentStatusViewModel" />
+            type="com.example.manageincidentsapp.incident.editIncidentStatus.EditIncidentStatusViewModel" />
     </data>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".incident.EditIncidentStatusFragment"
+    tools:context=".incident.editIncidentStatus.EditIncidentStatusFragment"
     android:background="@color/white">
 
 

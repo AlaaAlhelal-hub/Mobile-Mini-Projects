@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.addNewIncident
 
 import android.app.Application
 import android.content.Context
@@ -9,6 +9,7 @@ import android.webkit.MimeTypeMap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.incidentType.SubIncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
@@ -129,7 +130,7 @@ class AddNewIncidentViewModel(application: Application) : AndroidViewModel(appli
             val incidentRequest = IncidentRequest(description, typeId, latitude, longitude)
             IncidentApi.retrofitService.postNewIncident(token, incidentRequest).enqueue( object:
                 Callback<PostIncidentResponse> {
-                override fun onResponse( call: Call<PostIncidentResponse>, response: Response<PostIncidentResponse>
+                override fun onResponse(call: Call<PostIncidentResponse>, response: Response<PostIncidentResponse>
                 ) {
                     Log.i("response code ", "${response.code()}")
 

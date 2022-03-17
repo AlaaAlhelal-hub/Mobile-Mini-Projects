@@ -1,8 +1,9 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.viewIncidentDetails
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incidentType.IncidentType
 
 class ViewIncidentViewModelFactory (

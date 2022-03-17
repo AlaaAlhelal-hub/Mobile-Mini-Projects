@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.listOfIncident
 
 import android.app.Application
 import android.content.Intent
@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.manageincidentsapp.R
 import com.example.manageincidentsapp.databinding.FragmentListOfIncidentBinding
+import com.example.manageincidentsapp.incident.IncidentAdapter
+import com.example.manageincidentsapp.incident.IncidentListener
+import com.example.manageincidentsapp.incident.addNewIncident.AddNewIncident
 import com.example.manageincidentsapp.incidentType.IncidentType
 
 
@@ -58,7 +60,7 @@ class ListOfIncidentsFragment : Fragment() {
 
 
         binding.addNewIncident.setOnClickListener { view ->
-            val intentAddNewIncident = Intent(Application(), AddNewIncident::class.java)
+            val intentAddNewIncident = Intent(activity, AddNewIncident::class.java)
             startActivity(intentAddNewIncident)
         }
 
@@ -81,9 +83,12 @@ class ListOfIncidentsFragment : Fragment() {
                     }
                 }
 
-                this.findNavController().navigate(
-                    ListOfIncidentsFragmentDirections
-                        .actionListOfIncidentsFragmentToIncidentDetailsFragment(incident, type, issuerName))
+                this.findNavController().navigate( ListOfIncidentsFragmentDirections.actionListOfIncidentsFragmentToIncidentDetailsFragment(
+                        incident,
+                        type,
+                        issuerName
+                    )
+                )
                 //listOfIncidentsViewModel.onIncidentDetailsNavigated()
             }
 

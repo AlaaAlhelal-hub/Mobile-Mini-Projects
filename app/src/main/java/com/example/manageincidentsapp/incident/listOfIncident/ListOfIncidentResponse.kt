@@ -1,5 +1,6 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.listOfIncident
 
+import com.example.manageincidentsapp.incident.Incident
 import com.google.gson.annotations.SerializedName
 
 data class ListOfIncidentResponse (

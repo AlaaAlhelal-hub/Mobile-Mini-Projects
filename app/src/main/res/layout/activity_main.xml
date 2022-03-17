@@ -15,8 +15,34 @@
         tools:context=".MainActivity">
 
 
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/email_input_layout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/large_margin"
+    android:layout_marginTop="@dimen/extra_large_margin"
+    android:layout_marginEnd="@dimen/large_margin"
+    android:hint="@string/email"
+    app:layout_constraintBottom_toTopOf="@id/error_message"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:errorEnabled="true"
+    app:boxCornerRadiusTopStart="10dp"
+    app:boxCornerRadiusBottomStart="10dp"
+    app:boxCornerRadiusTopEnd="10dp"
+    app:boxCornerRadiusBottomEnd="10dp"
+    app:boxStrokeWidth="2dp"
+    style="@style/App.TextInputLayout.OutlinedBox">
 
-        <EditText
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="48dp" />
+</com.google.android.material.textfield.TextInputLayout>
+
+        <!-- <EditText
             android:id="@+id/email_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+-->
         <Button
             android:id="@+id/Login_btn"
             style="@style/PrimaryButton"
@@ -59,9 +85,10 @@
             app:layout_constraintBottom_toTopOf="@+id/Login_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_input"
+            app:layout_constraintTop_toBottomOf="@+id/email_input_layout"
             app:loginStatus="@{userViewModel.loginStatus}"
             app:errorHandler="@{userViewModel.errorHandler}"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,5 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.editIncidentStatus
 
-import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.manageincidentsapp.R
 import com.example.manageincidentsapp.databinding.FragmentEditIncidentStatusBinding
+import com.example.manageincidentsapp.incident.viewIncidentDetails.ViewIncidentViewModel
 import com.example.manageincidentsapp.user.IncidentApiStatus
 
 
@@ -30,11 +29,14 @@ class EditIncidentStatusFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentEditIncidentStatusBinding>(inflater,
             R.layout.fragment_edit_incident_status, container, false)
 
-        val arguments = EditIncidentStatusFragmentArgs.fromBundle(requireArguments())
+        val arguments = EditIncidentStatusFragmentArgs.fromBundle(
+                requireArguments()
+            )
 
 
         val viewModelFactory = EditIncidentStatusViewModelFactory(arguments.incidentId, arguments.currentStatus,  arguments.incidentType, arguments.issuerName,requireActivity().application)
-        incidentViewModel =  ViewModelProvider(this, viewModelFactory).get(EditIncidentStatusViewModel::class.java)
+        incidentViewModel =  ViewModelProvider(this, viewModelFactory).get(
+            EditIncidentStatusViewModel::class.java)
 
 
         when (selectedStatus) {
@@ -63,8 +65,12 @@ class EditIncidentStatusFragment : Fragment() {
             if (newStatus == IncidentApiStatus.Done){
 
                 this.findNavController().navigate(
-                    EditIncidentStatusFragmentDirections
-                        .actionEditIncidentStatusFragmentToIncidentDetailsFragment(incidentViewModel.incident.value!!, incidentViewModel.incidentType.value , incidentViewModel.issuerName.value!!))
+                    EditIncidentStatusFragmentDirections.actionEditIncidentStatusFragmentToIncidentDetailsFragment(
+                        incidentViewModel.incident.value!!,
+                        incidentViewModel.incidentType.value,
+                        incidentViewModel.issuerName.value!!
+                    )
+                )
             }
 
         })

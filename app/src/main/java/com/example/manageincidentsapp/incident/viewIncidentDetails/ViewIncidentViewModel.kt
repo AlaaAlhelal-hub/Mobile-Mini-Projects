@@ -1,15 +1,12 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.viewIncidentDetails
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
-import com.example.manageincidentsapp.network.IncidentApi
 import com.example.manageincidentsapp.user.IncidentApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,7 +57,10 @@ class ViewIncidentViewModel(incident: Incident, incidentType: IncidentType?, iss
         _incident.value = null
         _issuerName.value = issuerName
         _incident.value = incident
-        _incidentType.value = incidentType!!
+        incidentType.let {
+            _incidentType.value = incidentType!!
+
+        }
     }
 
     override fun onCleared() {

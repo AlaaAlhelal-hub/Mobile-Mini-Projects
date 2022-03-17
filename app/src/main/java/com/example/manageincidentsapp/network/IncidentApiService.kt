@@ -1,6 +1,10 @@
 package com.example.manageincidentsapp.network
 
 import com.example.manageincidentsapp.incident.*
+import com.example.manageincidentsapp.incident.addNewIncident.IncidentRequest
+import com.example.manageincidentsapp.incident.addNewIncident.PostIncidentResponse
+import com.example.manageincidentsapp.incident.editIncidentStatus.ChangeStatusRequest
+import com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentResponse
 import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.user.LoginResponse
 import com.example.manageincidentsapp.user.UserProperty

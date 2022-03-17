@@ -1,6 +1,5 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.viewIncidentDetails
 
-import android.app.Application
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.manageincidentsapp.R
 import com.example.manageincidentsapp.databinding.FragmentIncidentDetailsBinding
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.example.manageincidentsapp.incident.IncidentStatus
 import java.util.*
 
 
@@ -32,7 +30,9 @@ class IncidentDetailsFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentIncidentDetailsBinding>(inflater, R.layout.fragment_incident_details, container, false)
 
 
-        val arguments = IncidentDetailsFragmentArgs.fromBundle(requireArguments())
+        val arguments = IncidentDetailsFragmentArgs.fromBundle(
+                requireArguments()
+            )
         val viewModelFactory = ViewIncidentViewModelFactory(arguments.incident, arguments.incidentType, arguments.issuerName , requireActivity().application)
 
         incidentsViewModel =
@@ -63,9 +63,13 @@ class IncidentDetailsFragment : Fragment() {
 
         binding.changeIncidentStatus.setOnClickListener {
             this.findNavController().navigate(
-                IncidentDetailsFragmentDirections
-                    .actionIncidentDetailsFragmentToEditIncidentStatusFragment(incidentsViewModel.incident.value!!.id, incidentsViewModel.incident.value!!.status,
-                         incidentsViewModel.issuerName.value!!, incidentsViewModel.incidentType.value!!))
+                IncidentDetailsFragmentDirections.actionIncidentDetailsFragmentToEditIncidentStatusFragment(
+                    incidentsViewModel.incident.value!!.id,
+                    incidentsViewModel.incident.value!!.status,
+                    incidentsViewModel.issuerName.value!!,
+                    incidentsViewModel.incidentType.value!!
+                )
+            )
         }
 
         return binding.root

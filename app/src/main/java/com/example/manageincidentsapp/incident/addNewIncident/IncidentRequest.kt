@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.addNewIncident
 
 import com.google.gson.annotations.SerializedName
 

@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
 
-            <!--android:name="com.example.manageincidentsapp.incident.ListOfIncidentsFragment"-->
+            <!--android:name="com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentsFragment"-->
             <fragment
                 android:id="@+id/list_of_incidents_fragment"
                 android:layout_width="match_parent"

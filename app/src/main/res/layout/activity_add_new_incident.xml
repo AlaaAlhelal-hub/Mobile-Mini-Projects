@@ -3,7 +3,7 @@
     <data>
         <variable
             name="incidentViewModel"
-            type="com.example.manageincidentsapp.incident.AddNewIncidentViewModel" />
+            type="com.example.manageincidentsapp.incident.addNewIncident.AddNewIncidentViewModel" />
     </data>
 
 
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".incident.AddNewIncident">
+        tools:context=".incident.addNewIncident.AddNewIncident">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                     android:id="@+id/row_attachment_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="com.example.manageincidentsapp.incident.AttachmentFragment"
+                    android:name="com.example.manageincidentsapp.incident.addNewIncident.AttachmentFragment"
                     android:layout_marginBottom="@dimen/extra_large_margin"
                     />
 

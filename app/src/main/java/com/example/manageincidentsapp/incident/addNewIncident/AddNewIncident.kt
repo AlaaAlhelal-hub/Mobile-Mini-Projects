@@ -1,4 +1,4 @@
-package com.example.manageincidentsapp.incident
+package com.example.manageincidentsapp.incident.addNewIncident
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -283,6 +283,8 @@ class AddNewIncident : AppCompatActivity(), OnMapReadyCallback {
 
     val REQUEST_CODE = 100
 
+
+    //use implicit
     private fun openGalleryForImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"

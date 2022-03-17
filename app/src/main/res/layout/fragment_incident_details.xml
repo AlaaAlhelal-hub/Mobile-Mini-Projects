@@ -6,7 +6,7 @@
     <data>
         <variable
             name="incidentData"
-            type="com.example.manageincidentsapp.incident.ViewIncidentViewModel" />
+            type="com.example.manageincidentsapp.incident.viewIncidentDetails.ViewIncidentViewModel" />
 
         <variable
             name="incidentType"
@@ -20,7 +20,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".incident.IncidentDetailsFragment">
+    tools:context=".incident.viewIncidentDetails.IncidentDetailsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
