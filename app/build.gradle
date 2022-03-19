@@ -100,7 +100,10 @@ dependencies {
 
     // MP Android Chart
     //implementation files('libs/MPAndroidChart-v3.0.1.jar')
-   // implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
 
 
 }

@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        setContentView(binding.root)
+    setContentView(binding.root)
     }
+
+
 }

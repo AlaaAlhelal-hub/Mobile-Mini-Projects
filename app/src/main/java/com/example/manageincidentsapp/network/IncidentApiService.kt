@@ -3,6 +3,7 @@ package com.example.manageincidentsapp.network
 import com.example.manageincidentsapp.incident.*
 import com.example.manageincidentsapp.incident.addNewIncident.IncidentRequest
 import com.example.manageincidentsapp.incident.addNewIncident.PostIncidentResponse
+import com.example.manageincidentsapp.incident.dashboard.DashboardResponse
 import com.example.manageincidentsapp.incident.editIncidentStatus.ChangeStatusRequest
 import com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentResponse
 import com.example.manageincidentsapp.incidentType.IncidentType
@@ -77,9 +78,11 @@ interface IncidentApiService {
     @GET("user")
     fun getUsers(@Header("Authorization") token: String): Call<List<UserProperty>>
 
-
     @PUT("incident/change-status")
     fun changeStatus(@Header("Authorization") token: String, @Body changeStatusRequest: ChangeStatusRequest): Call<Incident>
+
+    @GET("dashboard")
+    fun getDashboard(@Header("Authorization") token: String): Call<DashboardResponse>
 
 }
 

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listOfIncidentsFragment"
         android:name="com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentsFragment"
-        android:label="fragment_list_of_incident"
+        android:label="@string/list_of_incident"
         tools:layout="@layout/fragment_list_of_incident" >
         <argument
             android:name="incident"
@@ -71,4 +71,9 @@
             android:name="IncidentType"
             app:argType="com.example.manageincidentsapp.incidentType.IncidentType" />
     </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.manageincidentsapp.incident.dashboard.DashboardFragment"
+        android:label="@string/dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>

@@ -1,6 +1,5 @@
 package com.example.manageincidentsapp.incident.listOfIncident
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -93,6 +92,9 @@ class ListOfIncidentsFragment : Fragment() {
             }
 
         })
+
+
+
         return binding.root
     }
 
