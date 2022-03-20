@@ -12,6 +12,7 @@ import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
 import com.example.manageincidentsapp.network.IncidentApi
+import com.example.manageincidentsapp.network.SharedPreferenceManager
 import com.example.manageincidentsapp.user.IncidentApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,7 @@ class EditIncidentStatusViewModel(incidentId: String, currentStatus: Int, incide
     private var appContext: Application = application
     private val viewModelJob = Job()
     private var coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private var TOKEN = ""
 
 
     private var _status = MutableLiveData<IncidentApiStatus>()
@@ -66,16 +68,14 @@ class EditIncidentStatusViewModel(incidentId: String, currentStatus: Int, incide
 
 
     fun changeStatus(newStatus: Int) {
-        val sharedPreferences: SharedPreferences =
-            appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("TOKEN", null).toString()
-        Log.i("token: ", token)
+        val sharedpreferences = SharedPreferenceManager.getInstance(appContext).sharedPreferences
+        TOKEN = sharedpreferences.getString("TOKEN", null).toString()
 
 
         coroutineScope.launch {
             _status.value = IncidentApiStatus.Pending
 
-            IncidentApi.retrofitService.changeStatus(token, ChangeStatusRequest(_incidentId.value!!, newStatus)).enqueue( object:
+            IncidentApi.retrofitService.changeStatus(TOKEN, ChangeStatusRequest(_incidentId.value!!, newStatus)).enqueue( object:
                 Callback<Incident> {
                 override fun onResponse(call: Call<Incident>, response: Response<Incident>
                 ) {

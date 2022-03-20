@@ -3,11 +3,10 @@ import com.example.manageincidentsapp.network.SharedPreferenceManager.Companion.
 
 class Session constructor(val sharedPreferenceManager: SharedPreferenceManager) {
     override fun toString(): String {
-
-              return  "mToken:$mToken "
+              return  "Token: $Token "
     }
 
-    var mToken: String? = null
+    var Token: String? = null
         get() {
             if (field == null)
                 field = sharedPreferenceManager.getStringValue(KEY_TOKEN)

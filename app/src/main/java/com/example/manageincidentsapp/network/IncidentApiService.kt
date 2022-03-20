@@ -1,5 +1,6 @@
 package com.example.manageincidentsapp.network
 
+import android.content.Context
 import com.example.manageincidentsapp.incident.*
 import com.example.manageincidentsapp.incident.addNewIncident.IncidentRequest
 import com.example.manageincidentsapp.incident.addNewIncident.PostIncidentResponse
@@ -17,18 +18,17 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+import retrofit2.http.Headers
 
 
 private const val BASE_URL = "https://mobilerapps.elm.sa/"
-
 /*
-var interceptor = Interceptor { chain ->
-    val newRequest: Request =
-        chain.request().newBuilder().addHeader("Authorization ", "Bearer ${session.mToken}").build()
-    chain.proceed(newRequest)
-}
 
-val client = OkHttpClient.Builder()
+
+var interceptor = HeadersInterceptor(SharedPreferenceManager.getInstance())
+
+
+val client: OkHttpClient = OkHttpClient.Builder()
     .addInterceptor(interceptor)
     .build()
 */
@@ -50,12 +50,15 @@ object IncidentApi{
     }
 }
 
-interface IncidentApiService {
+
+interface IncidentApiService{
 
 
+    @Headers("No-Authorization: true")
     @POST("login")
     fun login(@Body userEmail: UserProperty): Call<ResponseBody>
 
+    @Headers("No-Authorization: true")
     @POST("verify-otp")
     fun verifyOTP(@Body user: UserProperty): Call<LoginResponse>
 

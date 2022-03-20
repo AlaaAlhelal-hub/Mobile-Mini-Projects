@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/incidentDetailsFragment"
         android:name="com.example.manageincidentsapp.incident.viewIncidentDetails.IncidentDetailsFragment"
-        android:label="IncidentDetailsFragment" >
+        android:label="Incident Details" >
         <argument
             android:name="incident"
             app:argType="com.example.manageincidentsapp.incident.Incident" />
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/editIncidentStatusFragment"
         android:name="com.example.manageincidentsapp.incident.editIncidentStatus.EditIncidentStatusFragment"
-        android:label="fragment_edit_incident_status"
+        android:label="@string/change_status"
         tools:layout="@layout/fragment_edit_incident_status" >
         <action
             android:id="@+id/action_editIncidentStatusFragment_to_incidentDetailsFragment"

@@ -3,70 +3,52 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="userViewModel"
             type="com.example.manageincidentsapp.user.UserViewModel"/>
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-
-<com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/email_input_layout"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/large_margin"
-    android:layout_marginTop="@dimen/extra_large_margin"
-    android:layout_marginEnd="@dimen/large_margin"
-    android:hint="@string/email"
-    app:layout_constraintBottom_toTopOf="@id/error_message"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:errorEnabled="true"
-    app:boxCornerRadiusTopStart="10dp"
-    app:boxCornerRadiusBottomStart="10dp"
-    app:boxCornerRadiusTopEnd="10dp"
-    app:boxCornerRadiusBottomEnd="10dp"
-    app:boxStrokeWidth="2dp"
-    style="@style/App.TextInputLayout.OutlinedBox">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email_input"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="48dp" />
-</com.google.android.material.textfield.TextInputLayout>
-
-        <!-- <EditText
-            android:id="@+id/email_input"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_input_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginStart="@dimen/miduem_margin"
             android:layout_marginTop="@dimen/extra_large_margin"
-            android:layout_marginEnd="@dimen/large_margin"
-            android:ems="10"
-            android:hint="@string/email_example"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
+            android:layout_marginEnd="@dimen/miduem_margin"
+            android:hint="@string/email"
             app:layout_constraintBottom_toTopOf="@id/error_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
--->
+            app:layout_constraintTop_toTopOf="parent"
+            app:errorEnabled="true"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxStrokeWidth="2dp"
+            style="@style/App.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="48dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/Login_btn"
             style="@style/PrimaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginStart="@dimen/miduem_margin"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/miduem_margin"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,9 +59,8 @@
             style="@style/MessageError"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/large_margin"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginStart="@dimen/miduem_margin"
+            android:layout_marginEnd="@dimen/miduem_margin"
             android:text="@string/email_error_message"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/Login_btn"
@@ -89,7 +70,25 @@
             app:loginStatus="@{userViewModel.loginStatus}"
             app:errorHandler="@{userViewModel.errorHandler}"/>
 
+        <LinearLayout
+            android:id="@+id/progress_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="#BFBDBDBD"
+            android:visibility="@{userViewModel.loadingStatus ? View.VISIBLE : View.GONE}">
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

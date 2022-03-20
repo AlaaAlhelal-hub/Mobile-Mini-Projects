@@ -14,6 +14,7 @@ import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.incidentType.SubIncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
 import com.example.manageincidentsapp.network.IncidentApi
+import com.example.manageincidentsapp.network.SharedPreferenceManager
 import com.example.manageincidentsapp.user.IncidentApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,7 @@ import java.io.File
 class AddNewIncidentViewModel(application: Application) : AndroidViewModel(application) {
 
     private val SHARED_PREFS = "shared_prefs"
+    private var TOKEN = ""
 
     private val appContext = application
     private val viewModelJob = Job()
@@ -120,15 +122,12 @@ class AddNewIncidentViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun postNewIncident(description: String, typeId: Int, latitude: Double, longitude: Double) {
-        val sharedPreferences: SharedPreferences =
-            appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        var token = sharedPreferences.getString("TOKEN", null).toString()
-        Log.i("token: ", token)
-
+        val sharedpreferences = SharedPreferenceManager.getInstance(appContext).sharedPreferences
+        TOKEN = sharedpreferences.getString("TOKEN", null).toString()
         coroutineScope.launch {
             _status.value = IncidentApiStatus.Pending
             val incidentRequest = IncidentRequest(description, typeId, latitude, longitude)
-            IncidentApi.retrofitService.postNewIncident(token, incidentRequest).enqueue( object:
+            IncidentApi.retrofitService.postNewIncident(TOKEN, incidentRequest).enqueue( object:
                 Callback<PostIncidentResponse> {
                 override fun onResponse(call: Call<PostIncidentResponse>, response: Response<PostIncidentResponse>
                 ) {

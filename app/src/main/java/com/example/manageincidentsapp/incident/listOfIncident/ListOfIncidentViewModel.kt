@@ -16,6 +16,7 @@ import com.example.manageincidentsapp.incidentType.IncidentType
 import com.example.manageincidentsapp.incidentType.SubIncidentType
 import com.example.manageincidentsapp.network.ApiErrorResponse
 import com.example.manageincidentsapp.network.IncidentApi
+import com.example.manageincidentsapp.network.SharedPreferenceManager
 import com.example.manageincidentsapp.user.IncidentApiStatus
 import com.example.manageincidentsapp.user.UserProperty
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +34,7 @@ import kotlin.collections.ArrayList
 
 class ListOfIncidentViewModel(application: Application) : AndroidViewModel(application) {
     private val SHARED_PREFS = "shared_prefs"
+    private var TOKEN = ""
 
     private val appContext = application
     private val viewModelJob = Job()
@@ -43,6 +45,10 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
     val status: LiveData<IncidentApiStatus>
         get() = _status
 
+
+    private var _loadingStatus = MutableLiveData<Boolean>()
+    val loadingStatus: LiveData<Boolean>
+        get() = _loadingStatus
 
     private var _errorResponse = MutableLiveData<ApiErrorResponse>()
     val errorResponse : LiveData<ApiErrorResponse>
@@ -106,18 +112,22 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
 
 
     private fun getListOfIncidents() {
-        val sharedPreferences: SharedPreferences = appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("TOKEN", null).toString()
-
+        val sharedpreferences = SharedPreferenceManager.getInstance(appContext).sharedPreferences
+        //val sharedPreferences: SharedPreferences = appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        TOKEN = sharedpreferences.getString("TOKEN", null).toString()
+        Log.i(" getListOfIncidents() = TOKEN ",TOKEN)
         val startDate = "2021-11-14"
         coroutineScope.launch {
             _status.value = IncidentApiStatus.Pending
+            _loadingStatus.value = true
 
-            IncidentApi.retrofitService.getListOfIncident(token, startDate).enqueue( object: Callback<ListOfIncidentResponse> {
+            IncidentApi.retrofitService.getListOfIncident(TOKEN, startDate).enqueue( object: Callback<ListOfIncidentResponse> {
                 override fun onFailure(call: Call<ListOfIncidentResponse>, t: Throwable) {
                     _status.value = IncidentApiStatus.Failure
                     _listOfIncidents.value = null
                     _errorResponse.value = ApiErrorResponse(null)
+                    _loadingStatus.value = false
+
                     Log.i("Error ", "${t.message}")
                 }
 
@@ -129,16 +139,21 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
                         formattingDate()
                         getAllUsers()
                         _status.value = IncidentApiStatus.Done
+                        _loadingStatus.value = false
                     }
                     else if (response.code() == 403) {
                         _errorResponse.value = ApiErrorResponse("you are not authorized")
                         _status.value = IncidentApiStatus.Failure
                         _listOfIncidents.value = null
+                        _loadingStatus.value = false
+
                     }
                     else if (response.code() == 401) {
                         _errorResponse.value = ApiErrorResponse("you are not authorized")
                         _status.value = IncidentApiStatus.Failure
                         _listOfIncidents.value = null
+                        _loadingStatus.value = false
+
                     }
                 }
             })
@@ -147,15 +162,11 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
     }
 
     private fun getIncidentType() {
-        val sharedPreferences: SharedPreferences =
-            appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        var token = sharedPreferences.getString("TOKEN", null).toString()
-
 
         coroutineScope.launch {
             _getTypeStatus.value = IncidentApiStatus.Pending
 
-            IncidentApi.retrofitService.getIncidentType(token).enqueue( object:
+            IncidentApi.retrofitService.getIncidentType(TOKEN).enqueue( object:
                 Callback<List<IncidentType>> {
                 override fun onResponse(call: Call<List<IncidentType>>, response: Response<List<IncidentType>>
                 ) {
@@ -189,15 +200,10 @@ class ListOfIncidentViewModel(application: Application) : AndroidViewModel(appli
     }
 
     private fun getAllUsers() {
-        val sharedPreferences: SharedPreferences =
-            appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("TOKEN", null).toString()
-
-
         coroutineScope.launch {
             _getAllUsersStatus.value = IncidentApiStatus.Pending
 
-            IncidentApi.retrofitService.getUsers(token).enqueue( object:
+            IncidentApi.retrofitService.getUsers(TOKEN).enqueue( object:
                 Callback<List<UserProperty>> {
                 override fun onResponse(call: Call<List<UserProperty>>, response: Response<List<UserProperty>>
                 ) {

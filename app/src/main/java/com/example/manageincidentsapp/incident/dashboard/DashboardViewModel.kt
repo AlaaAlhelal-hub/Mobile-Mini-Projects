@@ -11,6 +11,7 @@ import com.example.manageincidentsapp.incident.Incident
 import com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentResponse
 import com.example.manageincidentsapp.network.ApiErrorResponse
 import com.example.manageincidentsapp.network.IncidentApi
+import com.example.manageincidentsapp.network.SharedPreferenceManager
 import com.example.manageincidentsapp.user.IncidentApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,7 @@ import retrofit2.Response
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
     private val SHARED_PREFS = "shared_prefs"
+    private var TOKEN = ""
 
     private val appContext = application
     private val viewModelJob = Job()
@@ -47,13 +49,13 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun getDashboard(){
-        val sharedPreferences: SharedPreferences = appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val token = sharedPreferences.getString("TOKEN", null).toString()
-
+        val sharedpreferences = SharedPreferenceManager.getInstance(appContext).sharedPreferences
+        //val sharedPreferences: SharedPreferences = appContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        TOKEN = sharedpreferences.getString("TOKEN", null).toString()
         coroutineScope.launch {
             _status.value = IncidentApiStatus.Pending
 
-            IncidentApi.retrofitService.getDashboard(token).enqueue( object:
+            IncidentApi.retrofitService.getDashboard(TOKEN).enqueue( object:
                 Callback<DashboardResponse> {
                 override fun onFailure(call: Call<DashboardResponse>, t: Throwable) {
                     _status.value = IncidentApiStatus.Failure

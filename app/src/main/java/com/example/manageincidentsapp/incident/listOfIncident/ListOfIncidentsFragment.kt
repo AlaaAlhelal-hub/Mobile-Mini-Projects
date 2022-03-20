@@ -57,6 +57,16 @@ class ListOfIncidentsFragment : Fragment() {
             }
         })
 
+        listOfIncidentsViewModel.loadingStatus.observe(viewLifecycleOwner, Observer { newStatus ->
+            if (newStatus) {
+                binding.progressLayout.visibility = View.VISIBLE
+            }
+            else {
+                binding.progressLayout.visibility = View.GONE
+            }
+
+        })
+
 
         binding.addNewIncident.setOnClickListener { view ->
             val intentAddNewIncident = Intent(activity, AddNewIncident::class.java)
@@ -88,7 +98,7 @@ class ListOfIncidentsFragment : Fragment() {
                         issuerName
                     )
                 )
-                //listOfIncidentsViewModel.onIncidentDetailsNavigated()
+
             }
 
         })

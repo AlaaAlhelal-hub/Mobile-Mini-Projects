@@ -42,7 +42,7 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.dashboardData.observe(viewLifecycleOwner, Observer {
 
             //update dashboard
-            setUpChart()
+            //setUpChart()
         })
 
         dashboardViewModel.status.observe(viewLifecycleOwner, Observer {
