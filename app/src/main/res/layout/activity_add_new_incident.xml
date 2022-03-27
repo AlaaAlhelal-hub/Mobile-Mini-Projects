@@ -3,7 +3,7 @@
     <data>
         <variable
             name="incidentViewModel"
-            type="com.example.manageincidentsapp.incident.addNewIncident.AddNewIncidentViewModel" />
+            type="com.example.manageincidents.presentaion.app.addNewIncident.AddNewIncidentViewModel" />
     </data>
 
 
@@ -67,7 +67,7 @@
                     android:minHeight="48dp" />
 
                 <fragment
-                    android:id="@+id/Map"
+                    android:id="@+id/map_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
                     android:layout_marginTop="@dimen/large_margin"
@@ -91,7 +91,7 @@
                     android:id="@+id/row_attachment_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="com.example.manageincidentsapp.incident.addNewIncident.AttachmentFragment"
+                    android:name="com.example.manageincidents.presentaion.app.addNewIncident.AttachmentFragment"
                     android:layout_marginBottom="@dimen/extra_large_margin"
                     />
 

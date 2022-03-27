@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.manageincidentsapp">
+    package="com.example.manageincidents">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -11,16 +11,18 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".presentaion.di.IncidentApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ManageIncidentsApp">
+        <!--
         <activity
-            android:name=".incident.ViewIncidentFragment"
+            android:name=".presentaion.app.ViewIncidentFragment"
             android:exported="false" />
-
+-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDlf19mHH05D4O4OLiCDQbwsOHkRK5KLeY" />
@@ -32,16 +34,16 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".incident.addNewIncident.AddNewIncident"
+            android:name="com.example.manageincidents.presentaion.app.addNewIncident.AddNewIncident"
             android:exported="false" />
         <activity
-            android:name=".ListOfIncidents"
+            android:name="com.example.manageincidents.ListOfIncidents"
             android:exported="false" />
         <activity
-            android:name=".OtpVerification"
+            android:name="com.example.manageincidents.presentaion.app.verifyOTP.OtpVerificationActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.manageincidents.presentaion.app.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

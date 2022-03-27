@@ -6,15 +6,8 @@
     <data>
         <variable
             name="incidentData"
-            type="com.example.manageincidentsapp.incident.viewIncidentDetails.ViewIncidentViewModel" />
+            type="com.example.manageincidents.presentaion.app.viewIncidentDetails.ViewIncidentViewModel" />
 
-        <variable
-            name="incidentType"
-            type="com.example.manageincidentsapp.incidentType.IncidentType" />
-
-        <variable
-            name="incidentStatus"
-            type="com.example.manageincidentsapp.incident.IncidentStatus" />
     </data>
 
 <FrameLayout

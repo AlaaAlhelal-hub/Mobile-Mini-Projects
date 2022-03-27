@@ -6,11 +6,11 @@
 
         <variable
             name="incident"
-            type="com.example.manageincidentsapp.incident.Incident" />
+            type="com.example.manageincidents.domain.models.Incident" />
 
         <variable
             name="clickListener"
-            type="com.example.manageincidentsapp.incident.IncidentListener" />
+            type="com.example.manageincidents.incident.IncidentListener" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

@@ -5,21 +5,21 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="userViewModel"
-            type="com.example.manageincidentsapp.user.UserViewModel"/>
+            name="viewModel"
+            type="com.example.manageincidents.presentaion.app.main.LoginViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".presentaion.app.main.MainActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_input_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/miduem_margin"
-            android:layout_marginTop="@dimen/extra_large_margin"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="@dimen/miduem_margin"
             android:hint="@string/email"
             app:layout_constraintBottom_toTopOf="@id/error_message"
@@ -67,8 +67,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_input_layout"
-            app:loginStatus="@{userViewModel.loginStatus}"
-            app:errorHandler="@{userViewModel.errorHandler}"/>
+            />
 
         <LinearLayout
             android:id="@+id/progress_layout"
@@ -80,7 +79,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:background="#BFBDBDBD"
-            android:visibility="@{userViewModel.loadingStatus ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.loadingStatus ? View.VISIBLE : View.GONE}">
 
             <ProgressBar
                 android:id="@+id/progressBar"

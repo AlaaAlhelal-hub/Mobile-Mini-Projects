@@ -7,57 +7,62 @@
 
     <fragment
         android:id="@+id/listOfIncidentsFragment"
-        android:name="com.example.manageincidentsapp.incident.listOfIncident.ListOfIncidentsFragment"
+        android:name="com.example.manageincidents.presentaion.app.viewListOfIncident.ListOfIncidentsFragment"
         android:label="@string/list_of_incident"
         tools:layout="@layout/fragment_list_of_incident" >
         <argument
             android:name="incident"
-            app:argType="com.example.manageincidentsapp.incident.Incident" />
+            app:argType="com.example.manageincidents.domain.models.Incident" />
         <action
             android:id="@+id/action_listOfIncidentsFragment_to_incidentDetailsFragment"
             app:destination="@id/incidentDetailsFragment"
             app:popUpTo="@id/incidentDetailsFragment"
             app:popUpToInclusive="true" />
+        <!--
         <argument
             android:name="incidentType"
-            app:argType="com.example.manageincidentsapp.incidentType.IncidentType"
+            app:argType="com.example.manageincidents.domain.models.IncidentType"
             app:nullable="true" />
         <argument
             android:name="issuerName"
             app:argType="string" />
-
+-->
     </fragment>
     <fragment
         android:id="@+id/incidentDetailsFragment"
-        android:name="com.example.manageincidentsapp.incident.viewIncidentDetails.IncidentDetailsFragment"
+        android:name="com.example.manageincidents.presentaion.app.viewIncidentDetails.IncidentDetailsFragment"
         android:label="Incident Details" >
-        <argument
-            android:name="incident"
-            app:argType="com.example.manageincidentsapp.incident.Incident" />
+
         <action
             android:id="@+id/action_incidentDetailsFragment_to_listOfIncidentsFragment"
             app:destination="@id/listOfIncidentsFragment"
             app:popUpTo="@id/listOfIncidentsFragment"
             app:popUpToInclusive="true" />
+        <!--
+        <argument
+            android:name="incident"
+            app:argType="com.example.manageincidents.domain.models.Incident" />
         <argument
             android:name="incidentType"
-            app:argType="com.example.manageincidentsapp.incidentType.IncidentType"
+            app:argType="com.example.manageincidents.domain.models.IncidentType"
             app:nullable="true" />
         <argument
             android:name="issuerName"
             app:argType="string" />
+        -->
         <action
             android:id="@+id/action_incidentDetailsFragment_to_editIncidentStatusFragment"
             app:destination="@id/editIncidentStatusFragment" />
     </fragment>
     <fragment
         android:id="@+id/editIncidentStatusFragment"
-        android:name="com.example.manageincidentsapp.incident.editIncidentStatus.EditIncidentStatusFragment"
+        android:name="com.example.manageincidents.presentaion.app.editIncidentStatus.EditIncidentStatusFragment"
         android:label="@string/change_status"
         tools:layout="@layout/fragment_edit_incident_status" >
         <action
             android:id="@+id/action_editIncidentStatusFragment_to_incidentDetailsFragment"
             app:destination="@id/incidentDetailsFragment" />
+        <!--
         <argument
             android:name="incidentId"
             app:argType="string" />
@@ -69,11 +74,12 @@
             app:argType="string" />
         <argument
             android:name="IncidentType"
-            app:argType="com.example.manageincidentsapp.incidentType.IncidentType" />
+            app:argType="com.example.manageincidents.domain.models.IncidentType" />
+            -->
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.manageincidentsapp.incident.dashboard.DashboardFragment"
+        android:name="com.example.manageincidents.presentaion.app.dashboard.DashboardFragment"
         android:label="@string/dashboard"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

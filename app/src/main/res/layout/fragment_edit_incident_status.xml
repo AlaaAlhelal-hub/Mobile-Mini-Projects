@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.manageincidentsapp.incident.editIncidentStatus.EditIncidentStatusViewModel" />
+            type="com.example.manageincidents.presentaion.app.editIncidentStatus.EditIncidentStatusViewModel" />
     </data>
 <FrameLayout
     android:layout_width="match_parent"

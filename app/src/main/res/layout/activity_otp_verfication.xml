@@ -5,20 +5,20 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="userViewModel"
-            type="com.example.manageincidentsapp.user.UserViewModel"/>
+            name="otpViewModel"
+            type="com.example.manageincidents.presentaion.app.verifyOTP.OtpViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".OtpVerification">
+        tools:context=".presentaion.app.verifyOTP.OtpVerificationActivity">
 
         <TextView
             android:id="@+id/code_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="8dp"
             android:text="@string/enter_the_code"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
             android:text="@string/wrong_code"
             android:visibility="invisible"
             style="@style/MessageError"
-            app:OtpStatus="@{userViewModel.otpStatus}" />
+             />
 
         <Button
             android:id="@+id/send_otp"
@@ -93,7 +93,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:background="#BFBDBDBD"
-            android:visibility="@{userViewModel.loadingStatus ? View.VISIBLE : View.GONE}">
+            android:visibility="@{otpViewModel.loadingStatus ? View.VISIBLE : View.GONE}">
 
             <ProgressBar
                 android:id="@+id/progressBar"

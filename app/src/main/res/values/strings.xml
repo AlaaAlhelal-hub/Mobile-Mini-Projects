@@ -36,4 +36,10 @@
     <string name="logout">Logout</string>
     <string name="list_of_incident">List of incident</string>
     <string name="total_incidents">Total incidents</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="empty_email">Email can not be empty</string>
+    <string name="ok">OK</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="empty_otp">OTP code can not be empty</string>
+
 </resources>
