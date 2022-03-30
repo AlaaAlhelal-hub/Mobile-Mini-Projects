@@ -44,11 +44,11 @@ class AddNewIncidentViewModel @Inject constructor(
         get() = _incidentType
 
     private var _incidentSubtype = MutableLiveData<List<SubIncidentType>>()
-    val incidentSubtype: LiveData<List<SubIncidentType>>
+    val incidentSubtype: MutableLiveData<List<SubIncidentType>>
         get() = _incidentSubtype
 
     private var _getTypeStatus = MutableLiveData<ApiStatus>()
-    val getTypeStatus: LiveData<ApiStatus>
+    val getTypeStatus: MutableLiveData<ApiStatus>
         get() = _getTypeStatus
 
 
@@ -86,40 +86,39 @@ class AddNewIncidentViewModel @Inject constructor(
         viewModelScope.launch {
             _getTypeStatus.value = ApiStatus.Pending
             _loadingStatus.value = true
-            try {
+            //try {
                 when (val response = getIncidentTypesUseCase.invoke(GetIncidentTypesUseCase.Request())) {
                     is ResultWrapper.Success -> {
                         _getTypeStatus.value = ApiStatus.Done
                         _loadingStatus.value = false
                         _incidentType.value = response.data!!
-
                     }
                     is ResultWrapper.Error.ApiError -> {
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError(response.errorMessage, true)
                     }
                     is ResultWrapper.Error.TimeoutError -> {
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError("TimeOut Error", true)
                     }
                     is ResultWrapper.Error.ClientConnectionError -> {
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Connection Error", true)
                     }
                     is ResultWrapper.Error.UnexpectedError ->{
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Unexpected Error", true)
                     }
                 }
-            } catch (exception: Exception) {
-                Log.i("getIncidentType ", "$exception")
-            }
+           // } catch (exception: Exception) {
+             //   Log.i("get Incident Type ", exception.toString())
+           // }
         }
     }
 
@@ -138,29 +137,29 @@ class AddNewIncidentViewModel @Inject constructor(
                    }
                    is ResultWrapper.Error.ApiError -> {
                        _status.value = ApiStatus.Failure
-                       _loadingStatus.value = true
+                       _loadingStatus.value = false
                        responseError.value = ResponseError(response.errorMessage, true)
                    }
                    is ResultWrapper.Error.TimeoutError -> {
                        _status.value = ApiStatus.Failure
-                       _loadingStatus.value = true
+                       _loadingStatus.value = false
                        responseError.value = ResponseError("TimeOut Error", true)
                    }
                    is ResultWrapper.Error.ClientConnectionError -> {
                        _status.value = ApiStatus.Failure
-                       _loadingStatus.value = true
+                       _loadingStatus.value = false
                        responseError.value =
                            ResponseError("Connection Error", true)
                    }
                    is ResultWrapper.Error.UnexpectedError ->{
                        _status.value = ApiStatus.Failure
-                       _loadingStatus.value = true
+                       _loadingStatus.value = false
                        responseError.value =
                            ResponseError("Unexpected Error", true)
                    }
                }
            } catch (exception: Exception) {
-               Log.i("postNewIncident", "$exception")
+               Log.i("postNewIncident", "${exception.message}")
            }
 
         }
@@ -188,23 +187,23 @@ class AddNewIncidentViewModel @Inject constructor(
                     }
                     is ResultWrapper.Error.ApiError -> {
                         _uploadStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError(response.errorMessage, true)
                     }
                     is ResultWrapper.Error.TimeoutError -> {
                         _uploadStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError("TimeOut Error", true)
                     }
                     is ResultWrapper.Error.ClientConnectionError -> {
                         _uploadStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Connection Error", true)
                     }
                     is ResultWrapper.Error.UnexpectedError ->{
                         _uploadStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Unexpected Error", true)
                     }

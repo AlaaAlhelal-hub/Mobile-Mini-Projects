@@ -17,15 +17,6 @@ class Session(private val preferenceUtil: PreferenceUtil, private val localeUtil
     val isArabicLocale: Boolean
         get() = localeUtil.isArabicLocale
 
-    val customeUrl: String?
-        get() =
-            if (preferenceUtil.getStringValue("customeUrl").isNullOrEmpty())
-            {
-                null
-            }else{
-                preferenceUtil.getStringValue("customeUrl").toString()
-            }
-
 
     val currentLanguage: String
         get() = if (isArabicLocale) {

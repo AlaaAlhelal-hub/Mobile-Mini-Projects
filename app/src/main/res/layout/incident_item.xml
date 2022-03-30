@@ -10,7 +10,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.manageincidents.incident.IncidentListener" />
+            type="com.example.manageincidents.presentaion.app.viewListOfIncident.IncidentListener" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

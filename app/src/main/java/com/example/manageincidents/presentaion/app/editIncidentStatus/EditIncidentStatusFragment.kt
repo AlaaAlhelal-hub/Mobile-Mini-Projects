@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +17,7 @@ import com.example.manageincidents.data.utils.ApiStatus
 import com.example.manageincidents.databinding.FragmentEditIncidentStatusBinding
 import com.example.manageincidents.domain.models.Incident
 import com.example.manageincidents.domain.models.IncidentType
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,6 +26,7 @@ class EditIncidentStatusFragment : Fragment() {
 
 
     private lateinit var viewModel: EditIncidentStatusViewModel
+    var snackbar: Snackbar? = null
 
     lateinit var binding: FragmentEditIncidentStatusBinding
     private var selectedStatus = 0
@@ -46,19 +51,15 @@ class EditIncidentStatusFragment : Fragment() {
         val incidentType: IncidentType
         val issuerName: String
         val currentStatus: Int
-        val bundle = this.arguments
-        if (bundle != null) {
-            incidentId = bundle.getString("incidentId")!!
-            incidentType = bundle.getSerializable("type") as IncidentType
-            issuerName = bundle.getString("issuerName")!!
-            currentStatus = bundle.getInt("incidentStatus")
-            viewModel.incidentIdValue.value = incidentId
-            viewModel.incidentTypeValue.value = incidentType
-            viewModel.issuerNameValue.value = issuerName
-            viewModel.currentStatusValue.value = currentStatus
-
-
-        }
+        val bundle = requireArguments()
+        incidentId = bundle.getString("incidentId")!!
+        incidentType = bundle.getSerializable("type") as IncidentType
+        issuerName = bundle.getString("issuerName")!!
+        currentStatus = bundle.getInt("incidentStatus")
+        viewModel.incidentIdValue.value = incidentId
+        viewModel.incidentTypeValue.value = incidentType
+        viewModel.issuerNameValue.value = issuerName
+        viewModel.currentStatusValue.value = currentStatus
 
 
         when (selectedStatus) {
@@ -95,9 +96,25 @@ class EditIncidentStatusFragment : Fragment() {
             }
 
         })
+
+        viewModel.responseError.observe(viewLifecycleOwner, Observer {
+            if (it.errorFlag) {
+                showSnackBar(it.message.toString(), Snackbar.LENGTH_LONG)
+            }
+        })
+
         return binding.root
     }
 
 
+    fun showSnackBar(message: String, length: Int = Snackbar.LENGTH_LONG, @StringRes actionText: Int = R.string.dismiss, @ColorRes actionTextColor: Int= R.color.primaryDarkColor, action: () -> Unit = {}) {
+        snackbar = requireActivity().findViewById<View>(android.R.id.content)?.let { Snackbar.make(it, message, length) }
+        snackbar?.setAction(getString(actionText)) {
+            action()
+            snackbar?.dismiss()
+        }
+        snackbar?.setActionTextColor(ContextCompat.getColor( requireActivity().applicationContext, actionTextColor))
+        snackbar?.show()
+    }
 
 }

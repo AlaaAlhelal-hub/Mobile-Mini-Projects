@@ -11,6 +11,7 @@ import com.example.manageincidents.ListOfIncidents
 import com.example.manageincidents.data.utils.ApiStatus
 import com.example.manageincidents.databinding.ActivityOtpVerficationBinding
 import com.example.manageincidents.presentaion.base.BaseActivity
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -87,6 +88,12 @@ class OtpVerificationActivity :  BaseActivity() {
             }
 
              */
+        })
+
+        viewModel.responseError.observe(this, Observer {
+            if (it.errorFlag) {
+                showSnackBar(it.message.toString(), Snackbar.LENGTH_LONG)
+            }
         })
     }
 }

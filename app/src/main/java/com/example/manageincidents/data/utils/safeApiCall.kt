@@ -2,6 +2,8 @@ package com.example.manageincidents.data.utils
 
 import com.example.manageincidents.presentaion.base.ResultWrapper
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
@@ -55,7 +57,8 @@ suspend fun <Q, T> safeApiCall(call: suspend () -> Response<T>): ResultWrapper<Q
 private fun convertErrorBody(errorBody: ResponseBody?): ApiErrorResponse? {
     return try {
         errorBody?.source()?.let {
-            val moshiAdapter = Moshi.Builder().build().adapter(ApiErrorResponse::class.java)
+            val moshiAdapter = Moshi.Builder().add(KotlinJsonAdapterFactory())
+                .build().adapter(ApiErrorResponse::class.java)
             moshiAdapter.fromJson(it)
         }
     } catch (exception: Exception) {

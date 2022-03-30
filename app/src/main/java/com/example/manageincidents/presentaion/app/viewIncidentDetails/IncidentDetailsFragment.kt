@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,12 +20,14 @@ import com.example.manageincidents.data.IncidentStatus
 import com.example.manageincidents.databinding.FragmentIncidentDetailsBinding
 import com.example.manageincidents.domain.models.Incident
 import com.example.manageincidents.domain.models.IncidentType
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class IncidentDetailsFragment : Fragment() {
 
+    var snackbar: Snackbar? = null
 
     private lateinit var viewModel: ViewIncidentViewModel
 
@@ -44,19 +49,18 @@ class IncidentDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this)
             .get(ViewIncidentViewModel::class.java)
 
+
         val incident: Incident
         val incidentType: IncidentType
         val issuerName: String
-        val bundle = this.arguments
-        if (bundle != null) {
-            incident = bundle.getSerializable("incident") as Incident
-            incidentType = bundle.getSerializable("type") as IncidentType
-            issuerName = bundle.getString("issuerName")!!
-            viewModel.incident.value = incident
-            viewModel.incidentType.value = incidentType
-            viewModel.issuerName.value = issuerName
+        val bundle = requireArguments()
 
-        }
+        incident = bundle.getSerializable("incident") as Incident
+        incidentType = bundle.getSerializable("type") as IncidentType
+        issuerName = bundle.getString("issuerName")!!
+        viewModel.incident.value = incident
+        viewModel.incidentType.value = incidentType
+        viewModel.issuerName.value = issuerName
 
         viewModel.incident.observe(viewLifecycleOwner, Observer { newIncident ->
             when(newIncident?.status) {
@@ -80,24 +84,29 @@ class IncidentDetailsFragment : Fragment() {
 
         binding.changeIncidentStatus.setOnClickListener {
 
-            savedInstanceState?.putSerializable("incident", viewModel.incident.value)
-            savedInstanceState?.putSerializable("type", viewModel.incidentType.value)
-            savedInstanceState?.putString("issuerName", viewModel.issuerName.value)
-            savedInstanceState?.putString("incidentId", viewModel.incident.value!!.id)
-            savedInstanceState?.putInt("incidentStatus", viewModel.incident.value!!.status)
-            this.setArguments(savedInstanceState)
-            this.findNavController().navigate(IncidentDetailsFragmentDirections.actionIncidentDetailsFragmentToEditIncidentStatusFragment(
+            bundle.putString("incidentId", viewModel.incident.value!!.id)
+            bundle.putInt("incidentStatus", viewModel.incident.value!!.status)
+
+            this.findNavController().navigate(R.id.action_incidentDetailsFragment_to_editIncidentStatusFragment, bundle
                /* viewModel.incident.value!!.id,
                 viewModel.incident.value!!.status,
                 viewModel.issuerName.value!!,
                 viewModel.incidentType.value!!
-                */)
+                */
             )
         }
 
         return binding.root
     }
 
-
+    fun showSnackBar(message: String, length: Int = Snackbar.LENGTH_LONG, @StringRes actionText: Int = R.string.dismiss, @ColorRes actionTextColor: Int= R.color.primaryDarkColor, action: () -> Unit = {}) {
+        snackbar = requireActivity().findViewById<View>(android.R.id.content)?.let { Snackbar.make(it, message, length) }
+        snackbar?.setAction(getString(actionText)) {
+            action()
+            snackbar?.dismiss()
+        }
+        snackbar?.setActionTextColor(ContextCompat.getColor( requireActivity().applicationContext, actionTextColor))
+        snackbar?.show()
+    }
 
 }

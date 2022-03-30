@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class ApiErrorResponse(
-    @Json(name = "message") var message: String,
-    @Transient var httpCode: Int? = null
+    @Json(name = "errorMessage") var message: String
+   // @Transient var httpCode: Int? = null
 )

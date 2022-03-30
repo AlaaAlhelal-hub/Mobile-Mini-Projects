@@ -13,6 +13,7 @@ import com.example.manageincidents.domain.userUseCases.OtpVerificationUseCase
 import com.example.manageincidents.domain.utils.ResponseError
 import com.example.manageincidents.presentaion.base.ResultWrapper
 import com.example.manageincidents.presentaion.utils.PreferenceUtil
+import com.example.manageincidents.presentaion.utils.Session
 import com.example.manageincidents.presentaion.utils.StringProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,7 +24,8 @@ import javax.inject.Inject
 class OtpViewModel @Inject constructor(
     private val otpUseCase: OtpVerificationUseCase,
     private val stringProvider: StringProvider,
-    private val preferenceUtil: PreferenceUtil
+    private val preferenceUtil: PreferenceUtil,
+    private val session: Session
 ) : ViewModel(){
 
     private var _status = MutableLiveData<ApiStatus>()
@@ -63,10 +65,11 @@ class OtpViewModel @Inject constructor(
                         _loadingStatus.value = false
                         val token = response.data.token
                         _loginResponse.value = response.data!!
-                        preferenceUtil.putStringValue(PreferenceUtil.TOKEN, token)
+                        session.accessToken = token
+                       // preferenceUtil.putStringValue(PreferenceUtil.TOKEN, token)
                         //add roles
                         val userData = User(email = email, token = token)
-                        preferenceUtil.putUserDetails(userData)
+                        session.user = userData
                         Timber.i("Ok")
                     }
                     is ResultWrapper.Error.ApiError -> {

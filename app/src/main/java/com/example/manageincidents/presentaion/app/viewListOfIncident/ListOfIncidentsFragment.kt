@@ -2,35 +2,43 @@ package com.example.manageincidents.presentaion.app.viewListOfIncident
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.manageincidents.R
-import com.example.manageincidents.incident.IncidentAdapter
-import com.example.manageincidents.incident.IncidentListener
+import com.example.manageincidents.databinding.FragmentIncidentDetailsBinding
 import com.example.manageincidents.databinding.FragmentListOfIncidentBinding
 import com.example.manageincidents.domain.models.IncidentType
 import com.example.manageincidents.presentaion.app.addNewIncident.AddNewIncident
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
 class ListOfIncidentsFragment : Fragment(){
 
 
-
+/*
     private val viewModel: ListOfIncidentViewModel by lazy {
-        ViewModelProvider(this).get(ListOfIncidentViewModel::class.java)
+        ViewModelProvider(this)[ListOfIncidentViewModel::class.java]
     }
-
+*/
+ val viewModel: ListOfIncidentViewModel
+        by viewModels()
 
     lateinit var binding: FragmentListOfIncidentBinding
+    var snackbar: Snackbar? = null
 
 
     override fun onCreateView(
@@ -45,20 +53,23 @@ class ListOfIncidentsFragment : Fragment(){
         binding.listOfIncidentsViewModel = viewModel
 
 
-        val manager =  LinearLayoutManager(this.context)
+        val manager =  LinearLayoutManager(requireContext())
         binding.listOfIncidents.layoutManager = manager
+
 
         val adapter = IncidentAdapter(IncidentListener { incident ->
             viewModel.onIncidentClicked(incident)
         })
-
         binding.listOfIncidents.adapter = adapter
+
 
         viewModel.listOfIncidents.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it.toMutableList())
             }
+            binding.listOfIncidents.adapter = adapter
         })
+
 
         viewModel.nameListUpdated.observe(viewLifecycleOwner, Observer { newnameListUpdated ->
             if (newnameListUpdated) {
@@ -73,7 +84,6 @@ class ListOfIncidentsFragment : Fragment(){
             else {
                 binding.progressLayout.visibility = View.GONE
             }
-
         })
 
 
@@ -91,6 +101,12 @@ class ListOfIncidentsFragment : Fragment(){
                     if (viewModel.incidentType.value!![i].id == incident.typeId){
                         type = viewModel.incidentType.value!![i]
                         break
+                    }else {
+                       for(j in 0 until viewModel.incidentType.value!![i].subTypes!!.size)
+                           if ( viewModel.incidentType.value!![i].subTypes!![j].id == incident.typeId) {
+                               type =  IncidentType(viewModel.incidentType.value!![i].subTypes!![j].arabicName, viewModel.incidentType.value!![i].subTypes!![j].englishName, viewModel.incidentType.value!![i].subTypes!![j].id, null)
+                               break
+                           }
                     }
                 }
 
@@ -101,12 +117,14 @@ class ListOfIncidentsFragment : Fragment(){
                     }
                 }
 
+                val bundle = Bundle()
+                bundle.putSerializable("incident", incident)
+                bundle.putSerializable("type", type)
+                bundle.putString("issuerName", issuerName)
 
-                savedInstanceState?.putSerializable("incident", incident)
-                savedInstanceState?.putSerializable("type", type)
-                savedInstanceState?.putString("issuerName", issuerName)
-                this.setArguments(savedInstanceState)
-
+                this.findNavController()
+                    .navigate(R.id.action_listOfIncidentsFragment_to_incidentDetailsFragment, bundle)
+                /*
                 this.findNavController().navigate(ListOfIncidentsFragmentDirections
                     .actionListOfIncidentsFragmentToIncidentDetailsFragment(
                      /*
@@ -114,17 +132,30 @@ class ListOfIncidentsFragment : Fragment(){
                         type,
                         issuerName
                 */
-                    )
-                )
-
+                    ))
+*/
             }
 
         })
 
+        viewModel.responseError.observe(viewLifecycleOwner, Observer {
+            if (it.errorFlag) {
+                showSnackBar(it.message.toString(), Snackbar.LENGTH_LONG)
+            }
+        })
 
 
         return binding.root
     }
 
 
+    fun showSnackBar(message: String, length: Int = Snackbar.LENGTH_LONG, @StringRes actionText: Int = R.string.dismiss, @ColorRes actionTextColor: Int= R.color.primaryDarkColor, action: () -> Unit = {}) {
+        snackbar = requireActivity().findViewById<View>(android.R.id.content)?.let { Snackbar.make(it, message, length) }
+        snackbar?.setAction(getString(actionText)) {
+            action()
+            snackbar?.dismiss()
+        }
+        snackbar?.setActionTextColor(ContextCompat.getColor( requireActivity().applicationContext, actionTextColor))
+        snackbar?.show()
+    }
 }

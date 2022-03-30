@@ -10,33 +10,35 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.example.manageincidents.ListOfIncidents
 import com.example.manageincidents.R
 import com.example.manageincidents.data.utils.ApiStatus
 import com.example.manageincidents.databinding.ActivityAddNewIncidentBinding
+import com.example.manageincidents.presentaion.base.BaseActivity
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 
 @AndroidEntryPoint
-class AddNewIncident : AppCompatActivity(), OnMapReadyCallback {
+class AddNewIncident :  BaseActivity() , OnMapReadyCallback {
 
-    //private val viewModel: AddNewIncidentViewModel by viewModels()
-
+    private val viewModel: AddNewIncidentViewModel by viewModels()
+/*
     private val viewModel: AddNewIncidentViewModel by lazy {
         ViewModelProvider(this).get(AddNewIncidentViewModel::class.java)
     }
-
+*/
     private lateinit var binding: ActivityAddNewIncidentBinding
 
     private lateinit var map: GoogleMap
@@ -71,11 +73,11 @@ class AddNewIncident : AppCompatActivity(), OnMapReadyCallback {
         binding.incidentViewModel = viewModel
 
 
-        viewModel.getTypeStatus.observe(this, androidx.lifecycle.Observer { newStatus ->
-            if (newStatus == ApiStatus.Done) {
+        viewModel.incidentType.observe(this, androidx.lifecycle.Observer {
+
                 val typeSpinner: Spinner = binding.type
                 val typeList = ArrayList<String>()
-
+                Log.i("INSIDE", "viewModel.getTypeStatus.observe")
                 for (i in 0 until viewModel.incidentType.value!!.size){
                     typeList.add(viewModel.incidentType.value!![i].englishName)
                 }
@@ -120,8 +122,15 @@ class AddNewIncident : AppCompatActivity(), OnMapReadyCallback {
                         TODO("Not yet implemented")
                     }
                 }
-            }
 
+
+        })
+
+
+        viewModel.responseError.observe(this, androidx.lifecycle.Observer {
+            if (it.errorFlag) {
+                showSnackBar(it.message.toString(), Snackbar.LENGTH_LONG)
+            }
         })
 
         binding.addNewIncidentBtn.setOnClickListener {
@@ -311,7 +320,6 @@ class AddNewIncident : AppCompatActivity(), OnMapReadyCallback {
 
             val imageDeleteIcon = attachmentFragment.view?.findViewById<ImageView>(R.id.deleteAttachment)
             imageDeleteIcon?.visibility= View.VISIBLE
-            Log.i("image Delete Icon visibility" , "${imageDeleteIcon?.isVisible}")
         }
     }
 

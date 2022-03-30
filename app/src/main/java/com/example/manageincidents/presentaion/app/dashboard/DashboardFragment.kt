@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +21,7 @@ import com.anychart.enums.LegendLayout
 import com.example.manageincidents.R
 import com.example.manageincidents.data.utils.ApiStatus
 import com.example.manageincidents.databinding.FragmentDashboardBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +31,7 @@ class DashboardFragment : Fragment() {
 
 
     private lateinit var viewModel: DashboardViewModel
+    var snackbar: Snackbar? = null
 
 
     lateinit var binding: FragmentDashboardBinding
@@ -61,6 +66,12 @@ class DashboardFragment : Fragment() {
 
             }// if
          })
+
+        viewModel.responseError.observe(viewLifecycleOwner, Observer {
+            if (it.errorFlag) {
+                showSnackBar(it.message.toString(), Snackbar.LENGTH_LONG)
+            }
+        })
 
         return binding.root
     }
@@ -128,5 +139,15 @@ class DashboardFragment : Fragment() {
         animator.duration = 2000
         animator.addUpdateListener { animation -> binding.totalIncidentsValue.text = animation.animatedValue.toString() }
         animator.start()
+    }
+
+    fun showSnackBar(message: String, length: Int = Snackbar.LENGTH_LONG, @StringRes actionText: Int = R.string.dismiss, @ColorRes actionTextColor: Int= R.color.primaryDarkColor, action: () -> Unit = {}) {
+        snackbar = requireActivity().findViewById<View>(android.R.id.content)?.let { Snackbar.make(it, message, length) }
+        snackbar?.setAction(getString(actionText)) {
+            action()
+            snackbar?.dismiss()
+        }
+        snackbar?.setActionTextColor(ContextCompat.getColor( requireActivity().applicationContext, actionTextColor))
+        snackbar?.show()
     }
 }

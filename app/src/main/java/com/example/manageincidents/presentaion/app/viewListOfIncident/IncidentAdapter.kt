@@ -1,4 +1,4 @@
-package com.example.manageincidents.incident
+package com.example.manageincidents.presentaion.app.viewListOfIncident
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.manageincidents.R
 import com.example.manageincidents.data.IncidentStatus
 import com.example.manageincidents.databinding.IncidentItemBinding
-import com.example.manageincidents.domain.incidentUseCases.GetListOfIncidentUseCase
 import com.example.manageincidents.domain.models.Incident
 
 
-class IncidentAdapter (val clickListener: IncidentListener): ListAdapter<Incident, IncidentAdapter.ViewHolder>(IncidentDiffCallback()) {
+class IncidentAdapter (val clickListener: IncidentListener): ListAdapter<Incident, IncidentAdapter.ViewHolder>(
+    IncidentDiffCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)

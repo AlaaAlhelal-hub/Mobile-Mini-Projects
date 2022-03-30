@@ -6,7 +6,7 @@ data class IncidentType(
     val arabicName: String,
     val englishName: String,
     val id: Int,
-    val subTypes: List<SubIncidentType>
+    val subTypes: List<SubIncidentType>?
 ): Serializable
 
 data class SubIncidentType(

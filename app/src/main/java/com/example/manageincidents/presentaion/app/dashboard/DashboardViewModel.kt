@@ -51,9 +51,10 @@ class DashboardViewModel @Inject constructor(
             try {
                 when (val response = getDashboardUseCase.invoke(GetDashboardUseCase.Request())) {
                     is ResultWrapper.Success -> {
-                        _status.value = ApiStatus.Done
                         _loadingStatus.value = false
                         _dashboardData.value = response.data.incidents
+                        _status.value = ApiStatus.Done
+
                     }
                     is ResultWrapper.Error.ApiError -> {
                         _status.value = ApiStatus.Failure

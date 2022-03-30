@@ -2,11 +2,9 @@ package com.example.manageincidents.presentaion.app.viewListOfIncident
 
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.manageincidents.data.utils.ApiErrorResponse
 import com.example.manageincidents.data.utils.ApiStatus
-import com.example.manageincidents.domain.incidentUseCases.GetIncidentTypesUseCase
 import com.example.manageincidents.domain.incidentUseCases.GetListOfIncidentUseCase
 import com.example.manageincidents.domain.incidentUseCases.ViewIncidentTypesUseCase
 import com.example.manageincidents.domain.models.Incident
@@ -18,6 +16,7 @@ import com.example.manageincidents.presentaion.base.ResultWrapper
 import com.example.manageincidents.presentaion.utils.StringProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.Exception
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -33,32 +32,32 @@ class ListOfIncidentViewModel @Inject constructor(
     : ViewModel() {
 
     private var _status = MutableLiveData<ApiStatus>()
-    val status: LiveData<ApiStatus>
+    val status: MutableLiveData<ApiStatus>
         get() = _status
 
     private var _loadingStatus = MutableLiveData<Boolean>()
-    val loadingStatus: LiveData<Boolean>
+    val loadingStatus: MutableLiveData<Boolean>
         get() = _loadingStatus
 
     private var _errorResponse = MutableLiveData<ApiErrorResponse>()
-    val errorResponse : LiveData<ApiErrorResponse>
+    val errorResponse : MutableLiveData<ApiErrorResponse>
         get() = _errorResponse
 
     private var _listOfIncidents = MutableLiveData<List<Incident>>()
-    val listOfIncidents : LiveData<List<Incident>>
+    val listOfIncidents : MutableLiveData<List<Incident>>
         get() = _listOfIncidents
 
 
     private var _incidentType = MutableLiveData<List<IncidentType>>()
-    val incidentType: LiveData<List<IncidentType>>
+    val incidentType: MutableLiveData<List<IncidentType>>
         get() = _incidentType
 
     private var _getTypeStatus = MutableLiveData<ApiStatus>()
-    val getTypeStatus: LiveData<ApiStatus>
+    val getTypeStatus: MutableLiveData<ApiStatus>
         get() = _getTypeStatus
 
     private var _users = MutableLiveData<List<User>>()
-    val users: LiveData<List<User>>
+    val users: MutableLiveData<List<User>>
         get() = _users
 
     private var _issuerNames = MutableLiveData<ArrayList<String>>()
@@ -71,7 +70,7 @@ class ListOfIncidentViewModel @Inject constructor(
         get() = _nameListUpdated
 
     private var _getAllUsersStatus = MutableLiveData<ApiStatus>()
-    val getAllUsersStatus: LiveData<ApiStatus>
+    val getAllUsersStatus: MutableLiveData<ApiStatus>
         get() = _getAllUsersStatus
 
     private var _navigateToIncidentDetails = MutableLiveData<Incident?>()
@@ -106,37 +105,37 @@ class ListOfIncidentViewModel @Inject constructor(
             try {
                 when (val response = listOfIncidentUseCase.invoke(GetListOfIncidentUseCase.Request(startDate))) {
                     is ResultWrapper.Success -> {
-                        _status.value = ApiStatus.Done
                         _loadingStatus.value = false
                         _listOfIncidents.value = response.data.incidents
+                        _status.value = ApiStatus.Done
                         formattingDate()
                         getAllUsers()
                     }
                     is ResultWrapper.Error.ApiError -> {
-                        _status.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError(response.errorMessage, true)
+                        _status.value = ApiStatus.Failure
                     }
                     is ResultWrapper.Error.TimeoutError -> {
-                        _status.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError("TimeOut Error", true)
+                        _status.value = ApiStatus.Failure
                     }
                     is ResultWrapper.Error.ClientConnectionError -> {
-                        _status.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Connection Error", true)
+                        _status.value = ApiStatus.Failure
                     }
                     is ResultWrapper.Error.UnexpectedError ->{
-                        _status.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Unexpected Error", true)
+                        _status.value = ApiStatus.Failure
                     }
                 }
             } catch (exception: Exception) {
-                Log.i("getListOfIncidents", "$exception")
+                Timber.i(exception)
             }
         }
     }
@@ -149,35 +148,35 @@ class ListOfIncidentViewModel @Inject constructor(
             try {
                 when (val response = viewIncidentTypesUseCase.invoke(ViewIncidentTypesUseCase.Request())) {
                     is ResultWrapper.Success -> {
-                        _getTypeStatus.value = ApiStatus.Done
                         _loadingStatus.value = false
                         _incidentType.value = response.data!!
+                        _getTypeStatus.value = ApiStatus.Done
                     }
                     is ResultWrapper.Error.ApiError -> {
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError(response.errorMessage, true)
                     }
                     is ResultWrapper.Error.TimeoutError -> {
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError("TimeOut Error", true)
                     }
                     is ResultWrapper.Error.ClientConnectionError -> {
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Connection Error", true)
                     }
                     is ResultWrapper.Error.UnexpectedError ->{
                         _getTypeStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Unexpected Error", true)
                     }
                 }
             } catch (exception: Exception) {
-                Log.i("getTypeOfIncident", "$exception")
+                Timber.i(exception)
             }
         }
     }
@@ -189,36 +188,36 @@ class ListOfIncidentViewModel @Inject constructor(
             try {
                 when (val response = getAllUsersUseCase.invoke(GetAllUsersUseCase.Request())) {
                     is ResultWrapper.Success -> {
-                        _getAllUsersStatus.value = ApiStatus.Done
                         _loadingStatus.value = false
                         _users.value = response.data!!
                         getUserName()
+                        _getAllUsersStatus.value = ApiStatus.Done
                     }
                     is ResultWrapper.Error.ApiError -> {
                         _getAllUsersStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError(response.errorMessage, true)
                     }
                     is ResultWrapper.Error.TimeoutError -> {
                         _getAllUsersStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value = ResponseError("TimeOut Error", true)
                     }
                     is ResultWrapper.Error.ClientConnectionError -> {
                         _getAllUsersStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Connection Error", true)
                     }
                     is ResultWrapper.Error.UnexpectedError ->{
                         _getAllUsersStatus.value = ApiStatus.Failure
-                        _loadingStatus.value = true
+                        _loadingStatus.value = false
                         responseError.value =
                             ResponseError("Unexpected Error", true)
                     }
                 }
             } catch (exception: Exception) {
-                Log.i("getAllUsersStatus", "$exception")
+                Timber.i(exception)
             }
 
 

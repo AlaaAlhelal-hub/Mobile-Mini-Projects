@@ -13,6 +13,7 @@ import com.example.manageincidents.databinding.ActivityListOfIncidentsBinding
 import com.example.manageincidents.presentaion.app.verifyOTP.OtpVerificationActivity
 import com.example.manageincidents.presentaion.app.viewListOfIncident.ListOfIncidentViewModel
 import com.example.manageincidents.presentaion.app.viewIncidentDetails.ViewIncidentViewModel
+import com.example.manageincidents.presentaion.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
